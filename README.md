@@ -29,7 +29,7 @@ A desktop application that recreates the encryption and decryption process of th
 
 2.  **Navigate to the directory:**
     ```bash
-    cd enigma-swing-gui
+    cd EnigmaGUI
     ```
 3.  **Compile and Run:**
     ```bash
