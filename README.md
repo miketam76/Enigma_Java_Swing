@@ -1,4 +1,3 @@
-````markdown
 # Enigma Machine Simulator (Java Swing)
 
 A desktop application that recreates the encryption and decryption process of the historical Enigma machine. This project features a graphical user interface built with Java Swing, allowing for a tactile and interactive experience with WWII-era cryptography.
@@ -24,7 +23,7 @@ A desktop application that recreates the encryption and decryption process of th
 
 ### Running the App
 1. **Clone the repository:**
-   ```bash
+```bash
    git clone [https://github.com/yourusername/enigma-swing-gui.git](https://github.com/yourusername/enigma-swing-gui.git)
 ````
 
