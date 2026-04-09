@@ -24,7 +24,7 @@ A desktop application that recreates the encryption and decryption process of th
 ### Running the App
 1. **Clone the repository:**
 ```bash
-   git clone [https://github.com/yourusername/enigma-swing-gui.git](https://github.com/yourusername/enigma-swing-gui.git)
+   git clone https://github.com/miketam76/Enigma_Java_Swing.git
 ````
 
 2.  **Navigate to the directory:**
