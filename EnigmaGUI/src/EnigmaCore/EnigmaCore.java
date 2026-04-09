@@ -84,14 +84,8 @@ public class EnigmaCore {
 		
 		// Stage 1 - letter passes to plug board
 		for(int i = 1; i < (26 + 1); i++) {
+			// Goes through plug board to find the letter and get the corresponding destination value
 			if(plugBoard[i].charAt(0) == letter) {
-				// if no changes to plug board origin and destination
-				// (example A A), set default
-//				if(plugBoard[i].charAt(2) == plugBoard[i].charAt(0))
-//					encoded = plugBoard[i].charAt(0); // Set value to the default origin value 
-//				else
-//					encoded = plugBoard[i].charAt(2); // Set value to the plug cable destination value
-//				break;
 				encoded = plugBoard[i].charAt(2);
 				break;
 			}
@@ -103,43 +97,24 @@ public class EnigmaCore {
 		// the value of step
 		// 3 - if the result is greater than 26 (relates to 26 characters in the alphabet), subtract 26 from that result
 		// until result is less than 26 will get the location of the letter to get from letters array
-		tempCount = getLetterNumber(encoded);
-		tempCount = (tempCount + getRotor1Pos()) + STEP;
-		
-		while(tempCount > 26) {	
-			tempCount = tempCount - 26;
-		}
-		encoded = LETTERS[ROTOR1[tempCount]].charAt(0);
-		
+		encoded = calcLetterPos(getLetterNumber(encoded), getRotor1Pos(), "E");
+
 		// Stage 3 - letter passes to rotor 2
 		// 1 - Get location of letter from letter array
 		// 2 - Calculate the location which letter it will get based on the position of rotor 2 and letter location value +
 		// the value of step
 		// 3 - if the result is greater than 26 (relates to 26 characters in the alphabet), subtract 26 from that result
 		// until result is less than 26 will get the location of the letter to get from letters array
-		tempCount = getLetterNumber(encoded);
-		tempCount = (tempCount + getRotor2Pos()) + STEP;
-		
-		while(tempCount > 26) {	
-			tempCount = tempCount - 26;
-		}
-		encoded = LETTERS[ROTOR2[tempCount]].charAt(0);
-		
+		encoded = calcLetterPos(getLetterNumber(encoded), getRotor2Pos(), "E");
+
 		// Stage 4 - letter passes to rotor 3
 		// 1 - Get location of letter from letter array
 		// 2 - Calculate the location which letter it will get based on the position of rotor 3 and letter location value +
 		// the value of step
 		// 3 - if the result is greater than 26 (relates to 26 characters in the alphabet), subtract 26 from that result
 		// until result is less than 26 will get the location of the letter to get from letters array
-		tempCount = getLetterNumber(encoded);
-		
-		tempCount = (tempCount + getRotor3Pos()) + STEP;
-		
-		while(tempCount > 26) {	
-			tempCount = tempCount - 26;
-		}
-		encoded = LETTERS[ROTOR3[tempCount]].charAt(0);
-		
+		encoded = calcLetterPos(getLetterNumber(encoded), getRotor3Pos(), "E");
+
 		// Stage 5 - letter passes to reflector cog
 		// 1 - Get location of letter from letter array
 		// 2 - Calculate the location which letter it will get based on the position of reflector and letter location value +
@@ -147,53 +122,27 @@ public class EnigmaCore {
 		// 3 - if the result is greater than 26 (relates to 26 characters in the alphabet), subtract 26 from that result
 		// until result is less than 26 will get the location of the letter to get from letters array
 		tempCount = getLetterNumber(encoded);
-		
+
 		tempCount = tempCount + STEP;
-		
+
 		if(tempCount > 26) {
 			tempCount = tempCount - 26;
 		}
 		encoded = LETTERS[reflector[tempCount]].charAt(0);
 		
 		// Stage 6 - letter goes back to rotor 3
-		tempCount = getLetterNumber(encoded);
-		
-		tempCount = (tempCount + getRotor3Pos()) + STEP;
-		
-		while(tempCount > 26) {	
-			tempCount = tempCount - 26;
-		}
-		encoded = LETTERS[ROTOR3[tempCount]].charAt(0);
-		
+		encoded = calcLetterPos(getLetterNumber(encoded), getRotor3Pos(), "E");
+
 		// Stage 7 - letter goes back to rotor 2
-		tempCount = getLetterNumber(encoded);
-		
-		tempCount = (tempCount + getRotor2Pos()) + STEP;
-		
-		while(tempCount > 26) {	
-			tempCount = tempCount - 26;
-		}
-		encoded = LETTERS[ROTOR2[tempCount]].charAt(0);
-		
+		encoded = calcLetterPos(getLetterNumber(encoded), getRotor2Pos(), "E");
+
 		// Stage 8 - letter goes back to rotor 1
-		tempCount = getLetterNumber(encoded);
-		
-		tempCount = (tempCount + getRotor1Pos()) + STEP;
-		
-		while(tempCount > 26) {	
-			tempCount = tempCount - 26;
-		}
-		encoded = LETTERS[ROTOR1[tempCount]].charAt(0);
-		
+		encoded = calcLetterPos(getLetterNumber(encoded), getRotor1Pos(), "E");
+
 		// Stage 9 - letter goes back to plug board
 		for(int i = 1; i < (26 + 1); i++) {
+			// Goes through plug board to find the letter and get the corresponding destination value
 			if(plugBoard[i].charAt(0) == encoded) {
-				// if no changes to plug board origin and destination
-				// (example A A), set default
-//				if(plugBoard[i].charAt(2) == plugBoard[i].charAt(0))
-//					encoded = plugBoard[i].charAt(0); // Set value to the default origin value 
-//				else
-//					encoded = plugBoard[i].charAt(2); // Set value to the plug cable destination value
 				encoded = plugBoard[i].charAt(2);
 				break;
 			}
@@ -210,14 +159,8 @@ public class EnigmaCore {
 		
 		// Stage 1 - letter passes to plug board
 		for(int i = 1; i < (26 + 1); i++) {
+			// Goes through plug board to find the letter and get the corresponding destination value
 			if(plugBoard[i].charAt(0) == letter) {
-				// if no changes to plug board origin and destination
-				// (example A A), set default
-//				if(plugBoard[i].charAt(2) == plugBoard[i].charAt(0))
-//					decoded = plugBoard[i].charAt(0); // Set value to the default origin value 
-//				else
-//					decoded = plugBoard[i].charAt(2); // Set value to the plug cable destination value
-//				break;
 				decoded = plugBoard[i].charAt(2);
 				break;
 			}
@@ -229,42 +172,23 @@ public class EnigmaCore {
 		// the value of step
 		// 3 - if the result is greater than 26 (relates to 26 characters in the alphabet), subtract 26 from that result
 		// until result is less than 26 will get the location of the letter to get from letters array
-		tempCount = getLetterNumber(decoded);
-		tempCount = (tempCount - getRotor1Pos()) - STEP;
-		
-		while(tempCount < 1) {	
-			tempCount = tempCount + 26;
-		}
-		decoded = LETTERS[ROTOR1[tempCount]].charAt(0);
-		
+		decoded = calcLetterPos(getLetterNumber(decoded), getRotor1Pos(), "D");
+
 		// Stage 3 - letter passes to rotor 2
 		// 1 - Get location of letter from letter array
 		// 2 - Calculate the location which letter it will get based on the position of rotor 2 and letter location value +
 		// the value of step
 		// 3 - if the result is greater than 26 (relates to 26 characters in the alphabet), subtract 26 from that result
 		// until result is less than 26 will get the location of the letter to get from letters array
-		tempCount = getLetterNumber(decoded);
-		tempCount = (tempCount - getRotor2Pos()) - STEP;
-		
-		while(tempCount < 1) {	
-			tempCount = tempCount + 26;
-		}
-		decoded = LETTERS[ROTOR2[tempCount]].charAt(0);
-		
+		decoded = calcLetterPos(getLetterNumber(decoded), getRotor2Pos(), "D");
+
 		// Stage 4 - letter passes to rotor 3
 		// 1 - Get location of letter from letter array
 		// 2 - Calculate the location which letter it will get based on the position of rotor 3 and letter location value +
 		// the value of step
 		// 3 - if the result is greater than 26 (relates to 26 characters in the alphabet), subtract 26 from that result
 		// until result is less than 26 will get the location of the letter to get from letters array
-		tempCount = getLetterNumber(decoded);
-		
-		tempCount = (tempCount - getRotor3Pos()) - STEP;
-		
-		while(tempCount < 1) {	
-			tempCount = tempCount + 26;
-		}
-		decoded = LETTERS[ROTOR3[tempCount]].charAt(0);
+		decoded = calcLetterPos(getLetterNumber(decoded), getRotor3Pos(), "D");
 		
 		// Stage 5 - letter passes to reflector cog
 		// 1 - Get location of letter from letter array
@@ -282,49 +206,42 @@ public class EnigmaCore {
 		decoded = LETTERS[reflector[tempCount]].charAt(0);
 		
 		// Stage 6 - letter goes back to rotor 3
-		tempCount = getLetterNumber(decoded);
-		
-		tempCount = (tempCount - getRotor3Pos()) - STEP;
-		
-		while(tempCount < 1) {	
-			tempCount = tempCount + 26;
-		}
-		decoded = LETTERS[ROTOR3[tempCount]].charAt(0);
+		decoded = calcLetterPos(getLetterNumber(decoded), getRotor3Pos(), "D");
 		
 		// Stage 7 - letter goes back to rotor 2
-		tempCount = getLetterNumber(decoded);
-		
-		tempCount = (tempCount - getRotor2Pos()) - STEP;
-		
-		while(tempCount < 1) {	
-			tempCount = tempCount + 26;
-		}
-		decoded = LETTERS[ROTOR2[tempCount]].charAt(0);
+		decoded = calcLetterPos(getLetterNumber(decoded), getRotor2Pos(), "D");
 		
 		// Stage 8 - letter goes back to rotor 1
-		tempCount = getLetterNumber(decoded);
-		
-		tempCount = (tempCount - getRotor1Pos()) - STEP;
-		
-		while(tempCount < 1) {	
-			tempCount = tempCount + 26;
-		}
-		decoded = LETTERS[ROTOR1[tempCount]].charAt(0);
+		decoded = calcLetterPos(getLetterNumber(decoded), getRotor1Pos(), "D");
 
 		// Stage 9 - letter goes back to plug board
 		for(int i = 1; i < (26 + 1); i++) {
+			// Goes through plug board to find the letter and get the corresponding destination value
 			if(plugBoard[i].charAt(0) == decoded) {
-				//if no changes to plug board origin and destination
-				// (example A A), set default
-//				if(plugBoard[i].charAt(2) == plugBoard[i].charAt(0))
-//					decoded = plugBoard[i].charAt(0); // Set value to the default origin value 
-//				else
-//					decoded = plugBoard[i].charAt(2); // Set value to the plug cable destination value
 				decoded = plugBoard[i].charAt(2);
 				break;
 			}
 		}
 		return decoded;
+	}
+
+	// Calculate the letter position based on the current letter position, rotor position, and whether it is encoding or decoding
+	public char calcLetterPos(int curPos, int curRotorPos, String operation) {
+		switch(operation) {
+			case "E":
+				curPos = (curPos + curRotorPos) + STEP;
+				while(curPos > 26) {
+					curPos = curPos - 26;
+				}
+				break;
+			case "D":
+				curPos = (curPos - curRotorPos) - STEP;
+				while(curPos < 1) {
+					curPos = curPos + 26;
+				}
+				break;
+		}
+		return LETTERS[curPos].charAt(0);
 	}
 	
 	// rotate appropriate rotor(s) by 1 
